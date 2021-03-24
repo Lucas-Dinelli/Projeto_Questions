@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block segundaOpcao %}<li class="nav-item active">{% endblock %}
+
+{% block conteudo %}
+
+    {% if current_user.is_authenticated %}
+        <div class="jumbotron" {% block estiloDoTitulo %}{% endblock %}>
+            <div class="container text-center">
+                <h1 class="display-4">Olá, {{current_user.username}}</h1>
+                {% block pontuacao %}<p>A sua pontuação atual é de {{current_user.pontuacao}} ponto(s)</p>{% endblock %}
+                {% block iniciar %}<p><a class="btn btn-primary btn-lg" href="{{url_for('questionario')}}" role="button">Iniciar jogo &raquo;</a></p>{% endblock %}
+            </div>
+        </div>
+
+        <div class="container">
+            <!-- Exemplo de linha de colunas -->
+            <div class="row">
+                <div class="col-md-4">
+                    <h2>Editar Perfil</h2>
+                    <p>Caso queira atualizar suas informações ou fazer correções, clique no botão abaixo. </p>
+                    {% block urlParaEdicao %}<p><a class="btn btn-secondary" href="{{url_for('portal_jogador_editar_perfil')}}" role="button">Ver detalhes &raquo;</a></p>{% endblock %}
+                </div>
+                <div class="col-md-4">
+                    {% block terceiraOpcaoDoPortal %}
+                        <h2>Ranking</h2>
+                        <p>Visualize o ranking geral ou também por categoria para saber como você está no game. </p>
+                        <p><a class="btn btn-secondary" href="{{url_for('portal_jogador_ranking')}}" role="button">Ver detalhes &raquo;</a></p>
+                    {% endblock %}
+                </div>
+                <div class="col-md-4">
+                    {% block quartaOpcaoDoPortal %}
+                        <h2>Histórico</h2>
+                        <p>Veja todo o seu histórico de perguntas e respostas ao longo do game.</p>
+                        <p><a class="btn btn-secondary" href="#" role="button">Ver detalhes &raquo;</a></p>
+                    {% endblock %}
+                </div>
+            </div>
+            <hr>
+        </div> <!-- /Fim do container -->
+    {% endif %}
+
+{% endblock %}

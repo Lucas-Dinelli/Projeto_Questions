@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Ranking{% endblock %}
+
+{% block quartaOpcao %}
+  <form class="form-inline my-2 my-lg-0">
+    <div class="input-group mb-0">
+      <div class="input-group-prepend">
+        <button class="btn btn-info dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categorias</button>
+        <div class="dropdown-menu">
+          {% for categoria in listaDeCategorias %}
+            <a class="dropdown-item" href="{{categoria.id}}">{{categoria.nome}}</a>
+          {% endfor %}
+          <div role="separator" class="dropdown-divider"></div>
+          <a class="dropdown-item" href="{{url_for('portal_jogador_ranking')}}">Ranking Geral *</a>
+        </div>
+      </div>
+      <input type="text" class="form-control mr-sm-3" id="caixaDePesquisa" placeholder="Nome de usuário" aria-label="Text input with dropdown button" onInput="keyRelease()">
+    </div>
+  </form>
+  <script>
+    function keyRelease() {
+      var textoDigitado = document.querySelector("#caixaDePesquisa");                  /* Captura o texto digitado no campo de pesquisa */
+      textoDigitado.addEventListener("keyup", function(e) {                           /* Adiciona um evento que é acionado a partir de uma nova digitação no campo de pesquisa */
+        var nomeParaProcurar = e.target.value.toLowerCase();                          /* Captura o que foi digitado, transformando qualquer letra em minúscula */
+        itemNomesDaTabela = document.querySelectorAll(".corpoDaTabela .nomeDeUsuario");   /* Pega os nomes de usuário que estão presentes no corpo da tabela */
+        itemNomesDaTabela.forEach(function(itemNome) {
+          if(itemNome.textContent.toLowerCase().substring(0, nomeParaProcurar.length) == nomeParaProcurar || itemNome.textContent=="") {
+            /* Caso o nome digitado seja compatível com o nome de usuário que está vindo do looping "forEach", a linha onde esse nome se encontra na tabela ficará visível e também cobrirá qualquer espaço em branco que existir acima */
+            itemNome.closest("tr").style.display = "";
+          }
+          else {
+            /* Caso o nome de usuário que está vindo do looping não seja compatível com o nome digitado, a linha onde esse nome vindo do looping se encontra na tabela ficará invisível */
+            itemNome.closest("tr").style.display = "none";
+          }
+        })
+      })
+    }
+  </script>
+{% endblock %}
+
+{% block conteudo %}
+  <div class="container text-center py-5 px-3">
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Nome de Usuário</th>
+          <th scope="col">Pontuação</th>
+          <th scope="col">Categoria</th>
+        </tr>
+      </thead>
+      <tbody class="corpoDaTabela">
+        {% if id_categoria == None %}
+          {% for i in range((listaDeJogadores|length)-1, -1, -1) %}
+            <tr>
+              <th scope="row">{{(listaDeJogadores|length)-i}}</th>
+              <td class="nomeDeUsuario">{{listaDeJogadores[i].username}}</td>
+              <td>{{listaDeJogadores[i].pontuacao}}</td>
+              <td>*</td>
+            </tr>
+          {% endfor %}
+        {% else %}
+          {% for i in range((listaDeResultados|length)-2, -1, -1) %}
+            <tr>
+              <th scope="row">{{(listaDeResultados|length)-1-i}}</th>
+              <td class="nomeDeUsuario">{{listaDeResultados[i][0]}}</td>
+              <td>{{listaDeResultados[i][1]}}</td>
+              <td>{{listaDeResultados[(listaDeResultados|length)-1]}}</td>
+            </tr>
+          {% endfor %}
+        {% endif %}
+        <tr>
+          <th scope="row"></th>
+          <td class="nomeDeUsuario"></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends 'cadastro_de_jogador.html' %}
+
+{% block titulo %}Cadastro de Administrador{% endblock %}
+
+{% block tituloDoCorpoDaPagina %}Novo Administrador{% endblock %}
+
+{% block novoCampo %}
+    <div class="form-group">
+        {{formulario.nome(class="form-control", placeholder="Nome")}}
+    </div>
+{% endblock %}
+
+{% block labelDoBotaoDeSucesso %}Voltar{% endblock %}

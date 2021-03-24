@@ -1,0 +1,19 @@
+{% extends 'portal_jogador.html' %}
+
+{% block estiloDoTitulo %}style="background-color:rgb(108, 117, 125, 0.8); color:black;"{% endblock %}
+{% block pontuacao %}<p></p>{% endblock %}
+{% block iniciar %}<p><a class="btn btn-dark btn-lg" href="{{url_for('cadastro_de_questao')}}" role="button">Inserir Questão &raquo;</a></p>{% endblock %}
+
+{% block urlParaEdicao %}<p><a class="btn btn-secondary" href="{{url_for('portal_admin_editar_perfil')}}" role="button">Ver detalhes &raquo;</a></p>{% endblock %}
+
+{% block terceiraOpcaoDoPortal %}
+    <h2>Novo Administrador</h2>
+    <p>Adicione um novo membro administrativo do jogo.</p>
+    <p><a class="btn btn-secondary" href="{{url_for('cadastro_de_admin')}}" role="button">Ver detalhes &raquo;</a></p>
+{% endblock %}
+
+{% block quartaOpcaoDoPortal %}
+    <h2>Histórico</h2>
+    <p>Veja todas as questões criadas por você ao longo do game.</p>
+    <p><a class="btn btn-secondary" href="#" role="button">Ver detalhes &raquo;</a></p>
+{% endblock %}

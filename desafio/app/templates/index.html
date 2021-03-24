@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Home{% endblock %}
+
+{% block conteudo %}
+<main class="container">
+    <div class="starter-template text-center py-5 px-3">
+        <h1>Bem-vindo ao Questions</h1>
+        <p class="lead">
+            Divirta-se respondendo as mais variadas perguntas.
+        </p>
+        <a href="{{url_for('login_jogador')}}" class="w-50 btn btn-lg btn-primary my-2">Jogador</a>
+        <a href="{{url_for('login_admin')}}" class="w-50 btn btn-lg btn-dark my-2">Administrador</a>
+    </div>
+</main><!-- /.container -->
+{% endblock %}

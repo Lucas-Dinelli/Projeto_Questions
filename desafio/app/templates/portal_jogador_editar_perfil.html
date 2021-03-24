@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Editar Perfil{% endblock %}
+
+
+{% block conteudo %}
+    <div class="container col-md-4 text-center py-5">
+        <form action="" method="POST">
+            {{ formulario.csrf_token }}
+            <div class="form-group">
+                <label><h2>Editar Perfil</h2></label>
+            </div>
+            {% if not username %}
+            <div class="form-group">
+                {{formulario.senha(class="form-control", placeholder="Digite a sua senha atual")}}
+            </div>
+            <button type="submit" class="w-100 btn btn-lg btn-primary">Prosseguir</button>
+            {% if resultado == 3 %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <strong>Senha Incorreta!</strong> Por favor, confirme sua senha novamente.
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endif %}
+            {% else %}
+                <div class="form-group">
+                    {{formulario.username(class="form-control", value=username)}}
+                </div>
+                {% block novoCampo %}{% endblock %}
+                <div class="form-group">
+                    {{formulario.senha(class="form-control", placeholder="Nova Senha")}}
+                </div>
+                <div class="form-group">
+                    {{formulario.confirmacaoDeSenha(class="form-control", placeholder="Confirmação da nova senha")}}
+                </div>
+                <button type="submit" class="w-100 btn btn-lg btn-primary">Atualizar</button>
+                {% if resultado == 3 %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <strong>Senhas diferentes!</strong> Por favor, confirme sua senha novamente.
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {% elif resultado == 2 %}
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <strong>Este nome de usuário já existe!</strong> Por favor, escolha um outro.
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {% elif resultado == 1 %}
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>Perfil editado com sucesso!</strong>
+                        <a href="{{url_for('portal_jogador')}}"><button type="button" class="btn btn-outline-success">Voltar</button></a>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {% endif %}
+            {% endif %}
+        </form>
+    </div>
+{% endblock %}

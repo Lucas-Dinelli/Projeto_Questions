@@ -1,0 +1,7 @@
+{% extends 'portal_jogador_editar_perfil.html' %}
+
+{% block novoCampo %}
+    <div class="form-group">
+        {{formulario.nome(class="form-control", value=current_user.nome)}}
+    </div>
+{% endblock %}

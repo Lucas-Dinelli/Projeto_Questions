@@ -1,0 +1,58 @@
+{% extends 'cadastro_de_jogador.html' %}
+
+{% block titulo %}Cadastro de Questão{% endblock %}
+
+{% block conteudo %}
+    <div class="container col-md-7 text-center py-5">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <td class=flashes>
+                        {% for message in messages %}
+                            <strong><tr>{{ message }}</tr></strong>
+                        {% endfor %}
+                    </td>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endif %}
+        {% endwith %}
+        <form action="" method="POST">
+            {{ formulario.csrf_token }}
+            <h2 class="mb-3">Inserir Questão</h2>
+            <div class="row py-4">
+                <div class="col-md-6 mb-3">
+                    <label>Enunciado</label>
+                    {{formulario.texto(class="form-control", placeholder="Enunciado da Questão")}}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>Resposta</label>
+                    {{formulario.resposta(class="form-control", placeholder="Resposta da Questão")}}
+                </div>
+            </div>
+
+            <div class="row py-4">
+                <div class="col-md-6 mb-3">
+                    <label>Primeira Alternativa Errada</label>
+                    {{formulario.primeira_opcao_errada(class="form-control", placeholder="1ª Alternativa Errada")}}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label>Segunda Alternativa Errada</label>
+                    {{formulario.segunda_opcao_errada(class="form-control", placeholder="2ª Alternativa Errada")}}
+                </div>
+            </div>
+
+            <div class="mb-3 py-4">
+                <label><strong>Categoria</strong></label>
+                {{formulario.categoria(class="form-control", list="datalistOptions", placeholder="Categoria da Questão...")}}
+                <datalist id="datalistOptions">
+                    {% for categoria in listaDeCategorias %}
+                        <option value="{{categoria.nome}}">
+                    {% endfor %}
+                </datalist>
+            </div>
+            <button type="submit" class="w-50 btn btn-lg btn-dark">Cadastrar</button>
+        </form>
+    </div>
+{% endblock %}
