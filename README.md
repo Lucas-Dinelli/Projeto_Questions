@@ -6,3 +6,6 @@ O projeto foi dividido em duas partes principais: uma para Jogador e outra para 
 Foi utilizado como base de dados o SQLite por conta do escopo do projeto e também de sua proposta
 
 Ainda falta completar o histórico de questionários respondidos por um Jogador e o histórico de questões criadas por um Administrador (ambas serão implementadas em breve)
+
+=>  Administrador padrão:   Login = admin
+                            Senha = admin
